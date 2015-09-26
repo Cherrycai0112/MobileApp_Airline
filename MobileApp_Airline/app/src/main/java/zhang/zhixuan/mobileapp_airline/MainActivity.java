@@ -1,22 +1,22 @@
 package zhang.zhixuan.mobileapp_airline;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.ActionBar;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.Gravity;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import android.widget.DatePicker;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity
      */
     private CharSequence mTitle;
 
+    private int year_x,month_x,day_x;
+    private static final int DIALOG_ID = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,11 @@ public class MainActivity extends AppCompatActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        Calendar calendar =Calendar.getInstance();
+        year_x = calendar.get(Calendar.YEAR);
+        month_x = calendar.get(Calendar.MONTH);
+        day_x = calendar.get(Calendar.DAY_OF_MONTH);
     }
 
     @Override
@@ -145,4 +153,28 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public void main_btn_pickDate (View view) {
+        showDialog(DIALOG_ID);
+        if (view.getId() == R.id.main_btn_departDate){
+            
+        }
+    }
+
+    @Override
+    protected Dialog onCreateDialog (int id){
+        if (id == DIALOG_ID) {
+            return new DatePickerDialog(this,datePickerListener, year_x, month_x,day_x);
+        } else {
+            return null;
+        }
+    }
+
+    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            year_x = year;
+            month_x = monthOfYear;
+            day_x = dayOfMonth;
+        }
+    };
 }
