@@ -6,7 +6,93 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity$PlaceholderFragment">
 
-    <TextView android:id="@+id/section_label" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <RadioGroup
+        android:id="@+id/main_radioGrp1"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
 
+            <RadioButton
+                android:id="@+id/main_radioBtn_oneWay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="One Way"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/main_radioBtn_roundTrip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Round Trip"
+                android:checked="false"/>
+
+    </RadioGroup>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:id="@+id/main_eT_from"
+        android:hint="From"
+        android:layout_below="@+id/main_radioGrp1"
+        />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:id="@+id/main_eT_to"
+        android:hint="To"
+        android:layout_below="@+id/main_eT_from"
+        />
+
+    <LinearLayout
+        android:id="@+id/main_lL1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/main_eT_to">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Depart"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Return"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/main_lL2"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/main_lL1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/main_btn_departDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="main_btn_pickDate"
+            android:text="Pick a date"/>
+        <Button
+            android:id="@+id/main_btn_returnDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="main_btn_pickDate"
+            android:text="Pick a date"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:id="@+id/main_btn_search"
+        android:text="Search"
+        android:onClick="main_btn_search"
+        android:layout_below="@+id/main_lL2"/>
 </RelativeLayout>
