@@ -3,6 +3,7 @@ package zhang.zhixuan.mobileapp_airline;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity
     private int returnDialogId = 2;
     Button main_btn_departDate;
     Button main_btn_returnDate;
+    RadioButton main_radioBtn_roundTrip;
+
 
 
     @Override
@@ -215,5 +219,17 @@ public class MainActivity extends AppCompatActivity
     public void main_radioBtn_oneWay(View view) {
         main_btn_returnDate = (Button)findViewById(R.id.main_btn_returnDate);
         main_btn_returnDate.setEnabled(true);
+    }
+
+    public void main_btn_search (View view) {
+        Intent intent = new Intent (this, MainActivity.class);
+        main_radioBtn_roundTrip = (RadioButton)findViewById(R.id.main_radioBtn_roundTrip);
+        if (main_radioBtn_roundTrip.isChecked()){
+            intent.putExtra("returnDate","i am return date");
+        }
+        intent.putExtra("departDate","i am depart date");
+        intent.putExtra("origin","here");
+        intent.putExtra("destination","there");
+        startActivity(intent);
     }
 }
