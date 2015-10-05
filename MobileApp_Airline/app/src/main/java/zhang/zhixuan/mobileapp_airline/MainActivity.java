@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity
      */
     private CharSequence mTitle;
 
-    private int year_D,month_D,day_D;
-    private int year_R,month_R,day_R;
+    private int year_R,month_R,d    private int year_D,month_D,day_D;
+    ay_R;
     private int departDialogId = 1;
     private int returnDialogId = 2;
     Button main_btn_departDate;
