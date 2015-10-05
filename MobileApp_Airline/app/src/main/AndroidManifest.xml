@@ -16,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Activity_SearchResults"
+            android:label="@string/title_activity_activity__search_results"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zhang.zhixuan.mobileapp_airline.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

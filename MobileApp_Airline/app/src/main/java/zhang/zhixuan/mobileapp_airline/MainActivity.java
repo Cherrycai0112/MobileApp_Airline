@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity
     public void main_btn_pickDate (View view) {
         showDialog(DIALOG_ID);
         if (view.getId() == R.id.main_btn_departDate){
-            
+
         }
     }
 
