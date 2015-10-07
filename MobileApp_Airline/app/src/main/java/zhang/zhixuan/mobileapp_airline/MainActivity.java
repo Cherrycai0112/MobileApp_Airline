@@ -3,6 +3,7 @@ package zhang.zhixuan.mobileapp_airline;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,7 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -31,8 +35,15 @@ public class MainActivity extends AppCompatActivity
      */
     private CharSequence mTitle;
 
-    private int year_x,month_x,day_x;
-    private static final int DIALOG_ID = 0;
+    private int year_R,month_R,d    private int year_D,month_D,day_D;
+    ay_R;
+    private int departDialogId = 1;
+    private int returnDialogId = 2;
+    Button main_btn_departDate;
+    Button main_btn_returnDate;
+    RadioButton main_radioBtn_roundTrip;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +60,12 @@ public class MainActivity extends AppCompatActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
         Calendar calendar =Calendar.getInstance();
-        year_x = calendar.get(Calendar.YEAR);
-        month_x = calendar.get(Calendar.MONTH);
-        day_x = calendar.get(Calendar.DAY_OF_MONTH);
+        year_D = calendar.get(Calendar.YEAR);
+        month_D = calendar.get(Calendar.MONTH);
+        day_D = calendar.get(Calendar.DAY_OF_MONTH);
+        year_R = calendar.get(Calendar.YEAR);
+        month_R = calendar.get(Calendar.MONTH);
+        day_R = calendar.get(Calendar.DAY_OF_MONTH);
     }
 
     @Override
@@ -154,27 +168,68 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void main_btn_pickDate (View view) {
-        showDialog(DIALOG_ID);
-        if (view.getId() == R.id.main_btn_departDate){
-            
+        if (view.getId() == R.id.main_btn_departDate) {
+            showDialog(departDialogId);
+        } else if (view.getId() == R.id.main_btn_returnDate) {
+            showDialog(returnDialogId);
         }
+
+
     }
 
     @Override
     protected Dialog onCreateDialog (int id){
-        if (id == DIALOG_ID) {
-            return new DatePickerDialog(this,datePickerListener, year_x, month_x,day_x);
+        if (id == departDialogId) {
+            return new DatePickerDialog(this,datePickerListenerD, year_D, month_D,day_D);
+        } else if (id == returnDialogId){
+            return new DatePickerDialog(this,datePickerListenerR, year_R, month_R,day_R);
         } else {
             return null;
         }
     }
 
-    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+    private DatePickerDialog.OnDateSetListener datePickerListenerD = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            year_x = year;
-            month_x = monthOfYear;
-            day_x = dayOfMonth;
+            year_D = year;
+            month_D = monthOfYear + 1;
+            day_D = dayOfMonth;
+            main_btn_departDate = (Button)findViewById(R.id.main_btn_departDate);
+            main_btn_departDate.setText(day_D + "/" + month_D + "/" + year_D);
+            Toast.makeText(MainActivity.this, day_D + "/" + month_D + "/" +year_D, Toast.LENGTH_SHORT).show();
         }
     };
+    private DatePickerDialog.OnDateSetListener datePickerListenerR = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            year_R = year;
+            month_R = monthOfYear + 1;
+            day_R = dayOfMonth;
+            main_btn_returnDate = (Button)findViewById(R.id.main_btn_returnDate);
+            main_btn_returnDate.setText(day_R + "/" + month_R + "/" + year_R);
+            Toast.makeText(MainActivity.this, day_R + "/" + month_R + "/" +year_R, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    public void main_radioBtn_roundTrip(View view) {
+        main_btn_returnDate = (Button)findViewById(R.id.main_btn_returnDate);
+        main_btn_returnDate.setEnabled(false);
+    }
+
+    public void main_radioBtn_oneWay(View view) {
+        main_btn_returnDate = (Button)findViewById(R.id.main_btn_returnDate);
+        main_btn_returnDate.setEnabled(true);
+    }
+
+    public void main_btn_search (View view) {
+        Intent intent = new Intent (this, MainActivity.class);
+        main_radioBtn_roundTrip = (RadioButton)findViewById(R.id.main_radioBtn_roundTrip);
+        if (main_radioBtn_roundTrip.isChecked()){
+            intent.putExtra("returnDate","i am return date");
+        }
+        intent.putExtra("departDate","i am depart date");
+        intent.putExtra("origin","here");
+        intent.putExtra("destination","there");
+        startActivity(intent);
+    }
 }

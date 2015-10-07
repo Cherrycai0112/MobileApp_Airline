@@ -18,7 +18,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="One Way"
-                android:checked="true"/>
+                android:checked="true"
+                android:onClick="main_radioBtn_oneWay"/>
 
             <RadioButton
                 android:id="@+id/main_radioBtn_roundTrip"
@@ -26,7 +27,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Round Trip"
-                android:checked="false"/>
+                android:checked="false"
+                android:onClick="main_radioBtn_roundTrip"/>
 
     </RadioGroup>
 
