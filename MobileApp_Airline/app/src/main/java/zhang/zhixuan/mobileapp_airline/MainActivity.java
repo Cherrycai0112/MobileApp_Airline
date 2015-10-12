@@ -168,7 +168,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void main_btn_pickDate (View view) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
         if (view.getId() == R.id.main_btn_departDate) {
             showDialog(departDialogId);
         } else if (view.getId() == R.id.main_btn_returnDate) {
@@ -212,7 +215,10 @@ public class MainActivity extends AppCompatActivity
         }
     };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
     public void main_radioBtn_roundTrip(View view) {
         main_btn_returnDate = (Button)findViewById(R.id.main_btn_returnDate);
         main_btn_returnDate.setEnabled(false);
@@ -234,4 +240,8 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra("destination","there");
         startActivity(intent);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master
