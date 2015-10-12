@@ -17,10 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -35,8 +38,8 @@ public class MainActivity extends AppCompatActivity
      */
     private CharSequence mTitle;
 
-    private int year_R,month_R,d    private int year_D,month_D,day_D;
-    ay_R;
+    private int year_R,month_R,day_R;
+    private int year_D,month_D,day_D;
     private int departDialogId = 1;
     private int returnDialogId = 2;
     Button main_btn_departDate;
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity
         year_R = calendar.get(Calendar.YEAR);
         month_R = calendar.get(Calendar.MONTH);
         day_R = calendar.get(Calendar.DAY_OF_MONTH);
+
     }
 
     @Override
@@ -192,44 +196,73 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             year_D = year;
-            month_D = monthOfYear + 1;
+            month_D = monthOfYear;
             day_D = dayOfMonth;
             main_btn_departDate = (Button)findViewById(R.id.main_btn_departDate);
-            main_btn_departDate.setText(day_D + "/" + month_D + "/" + year_D);
-            Toast.makeText(MainActivity.this, day_D + "/" + month_D + "/" +year_D, Toast.LENGTH_SHORT).show();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.YEAR, year_D);
+            calendar.set(Calendar.MONTH, month_D);
+            calendar.set(Calendar.DAY_OF_MONTH, day_D);
+            Date departureD = calendar.getTime();
+            main_btn_departDate.setText(simpleDateFormat.format(departureD).toString());
+            Toast.makeText(MainActivity.this, simpleDateFormat.format(departureD).toString(), Toast.LENGTH_SHORT).show();
         }
     };
     private DatePickerDialog.OnDateSetListener datePickerListenerR = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             year_R = year;
-            month_R = monthOfYear + 1;
+            month_R = monthOfYear;
             day_R = dayOfMonth;
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.YEAR, year_R);
+            calendar.set(Calendar.MONTH, month_R);
+            calendar.set(Calendar.DAY_OF_MONTH, day_R);
+            Date returnD = calendar.getTime();
             main_btn_returnDate = (Button)findViewById(R.id.main_btn_returnDate);
-            main_btn_returnDate.setText(day_R + "/" + month_R + "/" + year_R);
-            Toast.makeText(MainActivity.this, day_R + "/" + month_R + "/" +year_R, Toast.LENGTH_SHORT).show();
+            main_btn_returnDate.setText(simpleDateFormat.format(returnD).toString());
+            Toast.makeText(MainActivity.this, simpleDateFormat.format(returnD).toString(), Toast.LENGTH_SHORT).show();
         }
     };
 
     public void main_radioBtn_roundTrip(View view) {
         main_btn_returnDate = (Button)findViewById(R.id.main_btn_returnDate);
-        main_btn_returnDate.setEnabled(false);
+        main_btn_returnDate.setEnabled(true);
     }
 
     public void main_radioBtn_oneWay(View view) {
         main_btn_returnDate = (Button)findViewById(R.id.main_btn_returnDate);
-        main_btn_returnDate.setEnabled(true);
+        main_btn_returnDate.setEnabled(false);
     }
 
     public void main_btn_search (View view) {
-        Intent intent = new Intent (this, MainActivity.class);
+        Intent intent = new Intent (this, SearchResults.class);
+        EditText destinationET = (EditText)findViewById(R.id.main_eT_to);
+        EditText orginET = (EditText)findViewById(R.id.main_eT_from);
+
         main_radioBtn_roundTrip = (RadioButton)findViewById(R.id.main_radioBtn_roundTrip);
         if (main_radioBtn_roundTrip.isChecked()){
-            intent.putExtra("returnDate","i am return date");
+            System.out.println("Round trip is checked");
+            intent.putExtra("year_R",year_R);
+            intent.putExtra("month_R",month_R);
+            intent.putExtra("day_R",day_R);
+            intent.putExtra("OneWayOrNot", false);
+
         }
-        intent.putExtra("departDate","i am depart date");
-        intent.putExtra("origin","here");
-        intent.putExtra("destination","there");
+        else{
+            intent.putExtra("OneWayOrNot", true);
+
+        }
+        String origin = orginET.getText().toString();
+        String destination = destinationET.getText().toString();
+        intent.putExtra("year_D",year_D);
+        intent.putExtra("month_D",month_D);
+        intent.putExtra("day_D",day_D);
+
+        intent.putExtra("origin",origin);
+        intent.putExtra("destination",destination);
         startActivity(intent);
     }
 }

@@ -12,23 +12,23 @@
         android:layout_height="50dp"
         android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/main_radioBtn_oneWay"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="One Way"
-                android:checked="true"
-                android:onClick="main_radioBtn_oneWay"/>
-
-            <RadioButton
+        <RadioButton
                 android:id="@+id/main_radioBtn_roundTrip"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Round Trip"
-                android:checked="false"
+                android:checked="true"
                 android:onClick="main_radioBtn_roundTrip"/>
+
+        <RadioButton
+            android:id="@+id/main_radioBtn_oneWay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="One Way"
+            android:checked="false"
+            android:onClick="main_radioBtn_oneWay"/>
 
     </RadioGroup>
 
@@ -56,11 +56,13 @@
         android:layout_below="@+id/main_eT_to">
 
         <TextView
+            android:id="@+id/main_origin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Depart"/>
         <TextView
+            android:id="@+id/main_destination"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

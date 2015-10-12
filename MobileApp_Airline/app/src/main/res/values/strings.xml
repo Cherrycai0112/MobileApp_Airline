@@ -14,4 +14,5 @@
     <string name="title_activity_date_picker">DatePicker</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_activity__search_results">Activity_SearchResults</string>
 </resources>
